@@ -5,8 +5,8 @@
 {-# LANGUAGE ViewPatterns #-}
 
 import Control.Arrow ((***),first,second)
-import Data.Foldable (foldr')
-import Data.List
+import Data.Foldable (foldl',foldr')
+import Data.List (nub,transpose)
 import Control.Monad ((=<<),(>=>))
 import System.Environment (getArgs,getProgName)
 import qualified Data.Set as Set (toList,fromList)
@@ -53,5 +53,5 @@ main :: IO ()
 main = fmap parseArgs getArgs
         >>= \case Left wrong -> do putStrLn $ "Unknown method: " ++ wrong
                                    putStr . docText =<< getProgName
-                  Right (n,fns) -> putStr . unlines . concatMap (\l -> nubOrd $ map (($l) . uncurry statLines) fns) . collapseIn n . tokenize =<< getContents
+                  Right (n,fns) -> putStr . unlines . concatMap (\l -> nub $ map (($l) . uncurry statLines) fns) . collapseIn n . tokenize =<< getContents
 

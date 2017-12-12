@@ -28,9 +28,9 @@ safeMax xs = Just $ maximumBy (comparing snd) xs
 
 minWS,maxWS :: [Int] -> Int
 minWS [] = 0
-minWS xs = minimum xs
+minWS xs = maximum xs -- Most whitespace to pad the least digits
 maxWS [] = 0
-maxWS xs = maximum xs
+maxWS xs = minimum xs -- Least whitespace to pad the most digits
 
 medianListBy :: (a -> a -> Ordering) -> (a -> a -> a) -> [a] -> Maybe a
 medianListBy cmp evenFn (sortBy cmp -> xs) =
