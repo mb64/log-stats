@@ -20,6 +20,7 @@ executable log-stats
   main-is:             Main.hs
   other-modules:       Text,Stats
   -- other-extensions:    
+  ghc-options:         -Wall
   build-depends:       base >=4.10 && <4.11, containers
   hs-source-dirs:      src
   default-language:    Haskell2010

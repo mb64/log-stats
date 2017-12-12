@@ -13,7 +13,61 @@ You provide the program with a period, in lines, after which the
 log repeats, and a set of statistical operations to perform on 
 each of the numbers in the input.
 
-Here's some real-life examples:
+## Some examples:
+The basic format is `log-stats <period> <statistical operation...>`:
+```
+$ cat ex1.txt
+The numbers are 12 and 34.56.
+The number 3 is constant throughout.
+The numbers are 11 and 12.02.
+The number 3 is constant throughout.
+The numbers are 14 and 2.48.
+The number 3 is constant throughout.
+The numbers are 17 and 17.33.
+The number 3 is constant throughout.
+The numbers are 2 and 14.57.
+The number 3 is constant throughout.
+$ log-stats 2 mean <ex1.txt
+The numbers are 11 and 16.19.
+The number 3 is constant throughout.
+```
+It respects decimal precision of the inputs.
+You can supply more than one function to do:
+```
+$ log-stats 2 min max <ex1.txt
+The numbers are 2 and 2.48.
+The numbers are 17 and 34.56.
+The number 3 is constant throughout.
+```
+You'll notice that it only lists the second line once, because it
+is the same under each of the provided functions. (This feature
+is most useful when there's blank lines, or headers/titles, which
+are always the same and you don't want to see too much of them.)
+
+It supports variable amounts of whitespace:
+```
+$ cat ex2.txt
+This number is space-padded:        12.5
+This number is space-padded:       217.8
+This number is space-padded:         4.5
+This number is space-padded:      1234.5
+This number is space-padded:        14.7
+$ log-stats 1 median max <ex2.txt
+This number is space-padded:        14.7
+This number is space-padded:      1234.5
+```
+It defaults to `1` when no period is provided:
+```
+$ log-stats min <ex2.txt
+This number is space-padded:         4.5
+```
+And it defaults to `mean` when no statistical operation is provided:
+```
+$ log-stats <ex2.txt
+This number is space-padded:        296.8
+```
+
+Here's a real-life examples:
 ```
 $ while :; do date; sensors; grep MHz /proc/cpuinfo; sleep 1; done >sensor_log.txt # I stopped it at some point
 $ (date; sensors; grep MHz /proc/cpuinfo) | wc -l # Find how many lines per repetition
