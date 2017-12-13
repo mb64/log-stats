@@ -4,8 +4,8 @@ While trying to overclock my cpu, I wanted to be able to get the
 general gist of the temperature values, power consumption, VCore,
 etc. while stress-testing, but grew tired of repeatedly typing
 ```
-awk '/power1/ { t += $2; n++} END { print t/n }' sensor_log.txt
-sort -nrk2,2 sensor_log.txt | head -1
+$ awk '/power1/ { t += $2; n++} END { print t/n }' sensor_log.txt
+$ grep power1 sensor_log.txt | sort -nrk2,2 | head -1
 ```
 and variations on these.
 
