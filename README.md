@@ -67,7 +67,7 @@ $ log-stats <ex2.txt
 This number is space-padded:        296.8
 ```
 
-Here's a real-life examples:
+Here's a real-life example:
 ```
 $ while :; do date; sensors; grep MHz /proc/cpuinfo; sleep 1; done >sensor_log.txt # I stopped it at some point
 $ (date; sensors; grep MHz /proc/cpuinfo) | wc -l # Find how many lines per repetition
